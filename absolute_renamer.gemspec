@@ -1,34 +1,27 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "absolute_renamer/version"
+require File.expand_path('../lib/absolute_renamer/version', __FILE__)
 
-Gem::Specification.new do |s|
-  s.name        = "absolute_renamer"
-  s.version     = AbsoluteRenamer::VERSION
-  s.authors     = ["Simon COURTOIS"]
-  s.email       = ["happynoff@free.fr"]
-  s.homepage    = "http://github.com/simonc/absolute_renamer"
+Gem::Specification.new do |gem|
+  gem.authors       = ["Simon COURTOIS"]
+  gem.email         = ["scourtois@cubyx.fr"]
+  gem.summary       = "absolute_renamer is a very powerful tool that helps " \
+                      "files and directories renaming using the Krename syntax."
 
-  s.summary     = "absolute_renamer is a very powerful tool that helps files "  \
-                  "and directories renaming using the Krename syntax."
+  gem.description   = "absolute_renamer is a very powerful tool that helps " \
+                      "files and directories renaming using the Krename "    \
+                      "syntax. Unlike many batch renaming tools, "           \
+                      "absolute_renamer is able to rename folders. "         \
+                      "absolute_renamer is modular and can be extended to "  \
+                      "add new format tokens to handle mp3 or images or "    \
+                      "movies or any other type of file."
 
-  s.description = "absolute_renamer is a very powerful tool that helps files "  \
-                  "and directories renaming using the Krename syntax. Unlike " \
-                  "many batch renaming tools, absolute_renamer is able to "     \
-                  "rename folders. AbsoluteRenamer is modular and can be "     \
-                  "extended to adapt itself to any kind of file or to add "    \
-                  "new options and features."
+  gem.files         = `git ls-files`.split($\)
+  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.name          = "absolute_renamer"
+  gem.require_paths = ["lib"]
+  gem.version       = AbsoluteRenamer::VERSION
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
-
-  s.has_rdoc         = true
-  s.extra_rdoc_files = ['LICENSE', 'README.rdoc']
-  s.rdoc_options     = ["--charset=UTF-8"]
-
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  gem.add_development_dependency "rspec", "~> 2.6.0"
+  gem.add_runtime_dependency "slop", "~> 3.3.2"
 end
