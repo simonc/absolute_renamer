@@ -23,6 +23,7 @@ module AbsoluteRenamer
       FileUtils.send mode,
                      path_handler.path,
                      path_handler.new_path,
+                     force: @config.force?,
                      verbose: true,
                      noop: @config.list?
     end

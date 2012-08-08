@@ -45,6 +45,7 @@ config = Slop.parse! do
   on :D, :destination=, 'Destination directory for copy, move and link modes'
   on :d, :directories, 'Directories handling'
   on     :dots=, 'Number of dots to get file extension', as: Integer, default: 1
+  on :F, :force, 'Force the new files creation'
   on :f, :format=, 'Format string used as model', default: '$'
   on :l, :list, 'Only display how files will be renamed'
   on :m, :mode=, 'Renaming mode', :default => :move, as: Symbol
