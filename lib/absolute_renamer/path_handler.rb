@@ -25,11 +25,11 @@ module AbsoluteRenamer
     end
 
     def new_name
-      @new_name ||= @config[:format]
+      @new_name || name
     end
 
     def new_extension
-      @new_extension ||= @config[:'ext-format']
+      @new_extension || extension
     end
 
     def filename
