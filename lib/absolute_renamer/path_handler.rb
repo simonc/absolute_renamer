@@ -41,7 +41,7 @@ module AbsoluteRenamer
 
     def new_filename
       parts = [new_name]
-      parts << new_extension if set_extension?
+      parts << new_extension unless @config[:'no-extension']
       parts.join '.'
     end
 
@@ -58,7 +58,7 @@ module AbsoluteRenamer
     end
 
     def set_new_extension!(name_maker)
-      if set_extension?
+      unless @config[:'no-extension']
         self.new_extension = name_maker.new_value_for(:extension,
                                                       @config[:'ext-format'],
                                                       self)
@@ -72,12 +72,6 @@ module AbsoluteRenamer
     def set_new_path!(name_maker)
       set_new_name! name_maker
       set_new_extension! name_maker
-    end
-
-    protected
-
-    def set_extension?
-      extension && !@config[:'no-extension']
     end
   end
 end
