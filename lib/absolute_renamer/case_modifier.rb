@@ -1,17 +1,17 @@
 module AbsoluteRenamer
   module CaseModifier
-    def modify_case(str, modifier)
+    def modify_case(string, modifier)
       case modifier
-      when '*' then camelcase str
-      when '&' then str.upcase
-      when '%' then str.downcase
-      else          str
+      when '*' then camelcase string
+      when '&' then string.upcase
+      when '%' then string.downcase
+      else          string
       end
     end
 
-    def camelcase(str)
-      str.downcase
-         .gsub(/(\b|([^a-zA-Z0-9']))([a-z])/) { "#{$2}" + $3.capitalize }
+    def camelcase(string)
+      string.downcase
+            .gsub(/(\b|([^a-zA-Z0-9']))([a-z])/) { "#{$2}" + $3.capitalize }
     end
   end
 end
