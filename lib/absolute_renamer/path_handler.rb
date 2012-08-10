@@ -11,25 +11,20 @@ module AbsoluteRenamer
       @directory     = File.directory?(@path)
     end
 
-    def dirname
-      @dirname ||= File.dirname(@path)
+    def <=>(other)
+      dirname == other.dirname ? name <=> other.name : other.dirname <=> dirname
     end
-
-    def new_path(destination = nil)
-      File.join (destination || dirname), new_filename
-    end
-
 
     def directory?
       @directory
     end
 
-    def new_name
-      @new_name || name
+    def dirname
+      @dirname ||= File.dirname(@path)
     end
 
-    def new_extension
-      @new_extension || extension
+    def extension
+      @extension ||= (filename[/(\.[^\.]+){1,#{@config[:dots]}}$/] || '')[1..-1]
     end
 
     def filename
@@ -40,8 +35,8 @@ module AbsoluteRenamer
       @name ||= directory? ? filename : filename.chomp(".#{extension}")
     end
 
-    def extension
-      @extension ||= (filename[/(\.[^\.]+){1,#{@config[:dots]}}$/] || '')[1..-1]
+    def new_extension
+      @new_extension || extension
     end
 
     def new_filename
@@ -50,13 +45,16 @@ module AbsoluteRenamer
       parts.join '.'
     end
 
-    def set_new_path!(name_maker)
-      set_new_name! name_maker
-      set_new_extension! name_maker
+    def new_name
+      @new_name || name
     end
 
-    def set_new_name!(name_maker)
-      self.new_name = name_maker.new_value_for(:name, @config[:format], self)
+    def new_path(destination = nil)
+      File.join (destination || dirname), new_filename
+    end
+
+    def rename!(renamer)
+      renamer.rename self
     end
 
     def set_new_extension!(name_maker)
@@ -67,16 +65,13 @@ module AbsoluteRenamer
       end
     end
 
-    def rename!(renamer)
-      renamer.rename self
+    def set_new_name!(name_maker)
+      self.new_name = name_maker.new_value_for(:name, @config[:format], self)
     end
 
-    def depth
-      @depth ||= @zpath.split('/').size
-    end
-
-    def <=>(other)
-      dirname == other.dirname ? name <=> other.name : other.dirname <=> dirname
+    def set_new_path!(name_maker)
+      set_new_name! name_maker
+      set_new_extension! name_maker
     end
 
     protected
