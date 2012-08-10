@@ -55,15 +55,20 @@ module AbsoluteRenamer
     end
 
     def set_new_path!(name_maker)
-      self.new_name = name_maker.new_value_for(:name, self)
-
-      if set_extension?
-        self.new_extension = name_maker.new_value_for(:extension, self)
-      end
+      set_new_name! name_maker
+      set_new_extension! name_maker
     end
 
-    def set_extension?
-      extension && !@config[:'no-extension']
+    def set_new_name!(name_maker)
+      self.new_name = name_maker.new_value_for(:name, @config[:format], self)
+    end
+
+    def set_new_extension!(name_maker)
+      if set_extension?
+        self.new_extension = name_maker.new_value_for(:extension,
+                                                      @config[:'ext-format'],
+                                                      self)
+      end
     end
 
     def rename!(renamer)
@@ -76,6 +81,12 @@ module AbsoluteRenamer
 
     def <=>(other)
       dirname == other.dirname ? name <=> other.name : other.dirname <=> dirname
+    end
+
+    protected
+
+    def set_extension?
+      extension && !@config[:'no-extension']
     end
   end
 end
