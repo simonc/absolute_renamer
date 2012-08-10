@@ -15,8 +15,7 @@ module AbsoluteRenamer
       @dirname ||= File.dirname(@path)
     end
 
-    def new_path
-      destination = @config[:destination] || dirname
+    def new_path(destination = dirname)
       File.join destination, new_filename
     end
 

@@ -22,7 +22,7 @@ module AbsoluteRenamer
     def rename(path_handler)
       FileUtils.send mode,
                      path_handler.path,
-                     path_handler.new_path,
+                     path_handler.new_path(@config[:destination]),
                      force: @config.force?,
                      verbose: true,
                      noop: @config.list?
