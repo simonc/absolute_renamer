@@ -23,5 +23,6 @@ Gem::Specification.new do |gem|
   gem.version       = AbsoluteRenamer::VERSION
 
   gem.add_development_dependency "rspec", "~> 2.6.0"
+  gem.add_development_dependency "simplecov", "~> 0.6.4"
   gem.add_runtime_dependency "slop", "~> 3.3.2"
 end

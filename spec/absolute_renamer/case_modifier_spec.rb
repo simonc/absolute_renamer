@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'absolute_renamer/case_modifier'
 
 module AbsoluteRenamer
