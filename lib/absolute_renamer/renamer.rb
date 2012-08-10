@@ -9,33 +9,15 @@ module AbsoluteRenamer
       :symlink => :ln_s
     }
 
-    attr_writer :mode
-
-    def initialize(config)
-      @config = config
-    end
-
-    def mode
-      @mode ||= renaming_mode(@config[:mode])
-    end
-
-    def rename(path_handler)
-      FileUtils.send mode,
+    def rename(path_handler, mode, destination = nil, options = {})
+      FileUtils.send renaming_mode(mode),
                      path_handler.path,
-                     path_handler.new_path(@config[:destination]),
-                     force: @config.force?,
-                     verbose: true,
-                     noop: @config.list?
+                     path_handler.new_path(destination),
+                     options
     end
-
-    private
 
     def renaming_mode(mode)
       MODES[mode] || raise(RenamingModeUnknown, "#{mode} is not a renaming mode")
-    end
-
-    def short_path(path)
-      path.sub Dir.pwd+'/', ''
     end
   end
 end

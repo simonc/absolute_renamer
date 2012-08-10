@@ -97,9 +97,14 @@ path_handlers = ARGV.select { |path| File.directory?(path) == config.directories
                     .sort
 
 name_maker = NameMaker.new(interpreters)
-renamer = Renamer.new(config)
+renamer = Renamer.new
 
 path_handlers.each do |path_handler|
   path_handler.set_new_path! name_maker
-  path_handler.rename! renamer
+  path_handler.rename! renamer,
+                       config[:mode],
+                       config[:destination],
+                       force: config[:force],
+                       noop: config[:list],
+                       verbose: true
 end

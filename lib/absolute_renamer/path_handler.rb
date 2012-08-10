@@ -148,8 +148,8 @@ module AbsoluteRenamer
     #           rename(path_handler).
     #
     # Returns nothing.
-    def rename!(renamer)
-      renamer.rename self
+    def rename!(renamer, *args)
+      renamer.rename self, *args
     end
 
     # Public: Sets the new_extension of the path_handler using a name_maker.

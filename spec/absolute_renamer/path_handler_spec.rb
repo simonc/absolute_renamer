@@ -5,7 +5,7 @@ module AbsoluteRenamer
   describe PathHandler do
     let(:config) { Hash[:dots, 1] }
     let(:name_maker) { NameMaker.new }
-    let(:renamer) { Renamer.new(config) }
+    let(:renamer) { Renamer.new }
     let(:sandbox) { File.expand_path('../../support/sandbox', __FILE__) }
     let(:path_handler) { PathHandler.new path, config }
 
@@ -33,9 +33,9 @@ module AbsoluteRenamer
 
       describe '#rename!' do
         it "should call rename on the passed renamer with self as argument" do
-          renamer.should_receive(:rename).with(subject)
+          renamer.should_receive(:rename).with(subject, :move)
 
-          subject.rename! renamer
+          subject.rename! renamer, :move
         end
       end
 
