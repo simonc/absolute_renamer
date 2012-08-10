@@ -15,8 +15,8 @@ module AbsoluteRenamer
       @dirname ||= File.dirname(@path)
     end
 
-    def new_path(destination = dirname)
-      File.join destination, new_filename
+    def new_path(destination = nil)
+      File.join (destination || dirname), new_filename
     end
 
 
