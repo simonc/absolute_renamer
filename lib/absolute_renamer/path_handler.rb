@@ -16,13 +16,10 @@ module AbsoluteRenamer
     end
 
     def new_path
-      destination = @config[:destination] || location
+      destination = @config[:destination] || dirname
       File.join destination, new_filename
     end
 
-    def location
-      @location ||= File.dirname(@path)
-    end
 
     def directory?
       @directory
