@@ -14,7 +14,7 @@
 # AbsoluteRenamer is a very powerful tool that helps files and directories
 # renaming using the Krename syntax.
 #
-# = Exemple
+# = Example
 #
 #   absrenamer -f '[1;2]_[*4-]' *.mp3
 #   # => takes the first two characters of the original name
@@ -89,12 +89,29 @@ config = Slop.parse! do
     But you can also use a regular expression to do the job:
 
       --replace '/picture_(\\d+)/,pic-\\1'
+
+    EXAMPLES
+
+    absrenamer -f 'pics-##'  *.jpg
+      => renames all files files in the current directory ending in .jpg to
+         'pics-01.jpg', 'pics-02.jpg' ...
+
+    absrenamer -f '[1;2]_[*4-]' *.mp3
+      => takes the first two characters of the original name
+         and camelizes from the fourth to the end.
+
   END
+end
+
+if ARGV.empty?
+  puts config
+  exit
 end
 
 path_handlers = ARGV.select { |path| File.directory?(path) == config.directories? }
                     .map    { |path| PathHandler.new path, config }
                     .sort
+
 
 name_maker = NameMaker.new(interpreters)
 renamer = Renamer.new
@@ -108,3 +125,4 @@ path_handlers.each do |path_handler|
                        noop: config[:list],
                        verbose: true
 end
+
