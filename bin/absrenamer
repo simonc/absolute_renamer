@@ -105,23 +105,23 @@ end
 
 if ARGV.empty?
   puts config
-else
-  path_handlers = ARGV.select { |path| File.directory?(path) == config.directories? }
-                      .map    { |path| PathHandler.new path, config }
-                      .sort
+  exit
+
+path_handlers = ARGV.select { |path| File.directory?(path) == config.directories? }
+                    .map    { |path| PathHandler.new path, config }
+                    .sort
 
 
-  name_maker = NameMaker.new(interpreters)
-  renamer = Renamer.new
+name_maker = NameMaker.new(interpreters)
+renamer = Renamer.new
 
-  path_handlers.each do |path_handler|
-    path_handler.set_new_path! name_maker
-    path_handler.rename! renamer,
-                         config[:mode],
-                         config[:destination],
-                         force: config[:force],
-                         noop: config[:list],
-                         verbose: true
-  end
+path_handlers.each do |path_handler|
+  path_handler.set_new_path! name_maker
+  path_handler.rename! renamer,
+                       config[:mode],
+                       config[:destination],
+                       force: config[:force],
+                       noop: config[:list],
+                       verbose: true
 end
 
