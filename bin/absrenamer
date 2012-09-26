@@ -106,6 +106,7 @@ end
 if ARGV.empty?
   puts config
   exit
+end
 
 path_handlers = ARGV.select { |path| File.directory?(path) == config.directories? }
                     .map    { |path| PathHandler.new path, config }
