@@ -96,6 +96,10 @@ config = Slop.parse! do
       => renames all files files in the current directory ending in .jpg to
          'pics-01.jpg', 'pics-02.jpg' ...
 
+    absrenamer -f 'pics-##' -x 'jpg' *.JPEG
+      => renames all files files in the current directory ending in .JPEG to
+         'pics-01' and normalising the file extension to 'jpg'
+
     absrenamer -f '[1;2]_[*4-]' *.mp3
       => takes the first two characters of the original name
          and camelizes from the fourth to the end.
