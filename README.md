@@ -1,5 +1,6 @@
 #`absrenamer`: batch renaming using the Krename syntax
-
+[![Continuous Integration status](https://secure.travis-ci.org/lenniboy/absolute_renamer.png)](http://travis-ci.org/lenniboy/absolute_renamer)
+##Help
     -D, --destination       Destination directory for copy, move and link modes
     -d, --directories       Directories handling
         --dots              Number of dots to get file extension
